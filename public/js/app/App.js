@@ -16,6 +16,7 @@ define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
 
         App.mobile = isMobile();
 
+
         App.addInitializer(function (options) {
             Backbone.history.start();
         });

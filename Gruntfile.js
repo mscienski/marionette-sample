@@ -5,12 +5,12 @@ module.exports = function(grunt) {
         requirejs: {
             mainJS: {
                 options: {
-                    baseUrl: "public/js/",
+                    baseUrl: "public/js/app",
                     paths: {
-                        "app": "app/config/Init"
+                        "app": "../app/config/Init"
                     },
                     wrap: true,
-                    name: "libs/almond",
+                    name: "../libs/almond",
                     preserveLicenseComments: false,
                     optimize: "uglify",
                     mainConfigFile: "public/js/app/config/Init.js",
