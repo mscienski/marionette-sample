@@ -1,5 +1,5 @@
-define(['App', 'backbone', 'marionette', 'views/WelcomeView', 'views/HeaderView', 'views/AltWelcomeView'],
-    function (App, Backbone, Marionette, WelcomeView, HeaderView, AltWelcomeView) {
+define(['App', 'backbone', 'marionette', 'views/ContactView', 'views/HeaderView', 'views/AltWelcomeView'],
+    function (App, Backbone, Marionette, ContactView, HeaderView, AltWelcomeView) {
     return Backbone.Marionette.Controller.extend({
         initialize:function (options) {
             App.headerRegion.show(new HeaderView());
@@ -10,7 +10,7 @@ define(['App', 'backbone', 'marionette', 'views/WelcomeView', 'views/HeaderView'
                 welcomeRegion: '#welcome-main'
             });
 
-            App.mainRegion.show(new WelcomeView());
+            App.mainRegion.show(new ContactView());
             App.welcomeRegion.show(new AltWelcomeView());
         }
     });

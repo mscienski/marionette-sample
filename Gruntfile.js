@@ -33,8 +33,13 @@ module.exports = function(grunt) {
                     jQuery: true,
                     console: false,
                     module: true,
-                    document: true
-                }
+                    document: true,
+                    define: true,
+                    require: true
+                },
+                strict: false,
+                globalstrict: true,
+                validthis: true
             }
         }
     });
