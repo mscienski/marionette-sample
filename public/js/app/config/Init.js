@@ -39,8 +39,8 @@ require.config({
 });
 
 // Includes Desktop Specific JavaScript files here (or inside of your Desktop router)
-require(["App", "routers/AppRouter", "controllers/Controller", "jquery", "jqueryui", "bootstrap", "backbone.validateAll"],
-    function (App, AppRouter, Controller) {
+require(["App", "Contact/index", "ContactList/index", "routers/AppRouter", "controllers/Controller", "jquery", "jqueryui", "bootstrap", "backbone.validateAll"],
+    function (App, Contact, ContactList, AppRouter, Controller) {
         App.appRouter = new AppRouter({
             controller:new Controller()
         });

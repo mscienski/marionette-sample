@@ -3,7 +3,7 @@
  * Created by mscienski on 5/22/15.
  */
 
-define(['../App', 'marionette', 'backbone', 'jquery', 'underscore', './models/Contact', './collections/ContactCollection'],
+define(['App', 'marionette', 'backbone', 'jquery', 'underscore', './models/Contact', './collections/ContactCollection'],
     function(App, Marionette, Backbone, $, _, Contact, ContactCollection) {
         App.module('Entities', function(Entities, App, Backbone, Marionette, $, _, Contact, ContactCollection) {
             Entities.Contact = Contact;
