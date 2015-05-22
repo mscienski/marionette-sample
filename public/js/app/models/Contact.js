@@ -7,7 +7,8 @@ define(['jquery', 'backbone'],
         var Contact = Backbone.Model.extend({
             defaults: {
                 firstName: '',
-                lastName: ''
+                lastName: '',
+                phoneNumber: 'No phone number!'
             }
         });
 

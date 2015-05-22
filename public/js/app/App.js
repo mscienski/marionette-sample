@@ -1,5 +1,5 @@
-define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
-    function ($, Backbone, Marionette, _, Handlebars) {
+define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars', 'collections/ContactCollection'],
+    function ($, Backbone, Marionette, _, Handlebars, ContactCollection) {
         var App = new Backbone.Marionette.Application();
 
         //Organize Application into regions corresponding to DOM elements
@@ -16,6 +16,23 @@ define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
 
         App.mobile = isMobile();
 
+        App.contacts = new ContactCollection ([
+            {
+                firstName: 'Bob',
+                lastName: 'Loblaw',
+                phoneNumber: '801-555-1111'
+            },
+            {
+                firstName: 'Alice',
+                lastName: 'Wonderland',
+                phoneNumber: '801-555-2222'
+            },
+            {
+                firstName: 'Mickey',
+                lastName: 'Mouse',
+                phoneNumber: '801-555-3333'
+            }
+        ]);
 
         App.addInitializer(function (options) {
             Backbone.history.start();
