@@ -13,6 +13,10 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                         collection: contacts
                     });
 
+                    contactsListView.on('childview:contact:delete', function(childView, model) {
+                        contacts.remove(model);
+                    });
+
                     App.mainRegion.show(contactsListView);
                 }
             };
