@@ -10,9 +10,14 @@ define(['ContactShow/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                 showContact: function(id) {
                     var contacts = App.request('contact:entities');
                     var model = contacts.get(id);
-                    var contactView = new Show.Contact({
-                        model: model
-                    });
+                    var contactView;
+                    if (model !== undefined) {
+                        contactView = new Show.Contact({
+                            model: model
+                        });
+                    } else {
+                        contactView = new Show.MissingContact();
+                    }
 
                     App.regions.main.show(contactView);
                 }
