@@ -14,7 +14,7 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                     });
 
                     contactsListView.on('childview:contact:delete', function(childView, model) {
-                        contacts.remove(model);
+                        model.destroy();
                     });
 
                     contactsListView.on('childview:contact:show', function(childView, model) {

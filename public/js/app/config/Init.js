@@ -10,6 +10,7 @@ require.config({
         "backbone":"../libs/backbone",
         "marionette":"../libs/backbone.marionette",
         "handlebars":"../libs/handlebars",
+        'localstorageadapter':'../libs/localstorage',
 
         // Plugins
         "backbone.validateAll":"../libs/plugins/Backbone.validateAll",
@@ -39,7 +40,7 @@ require.config({
 });
 
 // Includes Desktop Specific JavaScript files here (or inside of your Desktop router)
-require(["Contact/index", "ContactList/index", 'ContactShow/index', 'App', "jquery", "jqueryui", "bootstrap", "backbone.validateAll"],
+require(["Contact/index", "ContactList/index", 'ContactShow/index', 'App', "jquery", "jqueryui", "bootstrap", "backbone.validateAll", 'localstorageadapter'],
     function (Contact, ContactList, ContactShow, App) {
         App.start();
     });

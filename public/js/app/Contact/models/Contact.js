@@ -5,6 +5,7 @@
 define(['jquery', 'backbone'],
     function($, Backbone) {
         var Contact = Backbone.Model.extend({
+            urlRoot: 'contacts',
             defaults: {
                 firstName: '',
                 lastName: '',

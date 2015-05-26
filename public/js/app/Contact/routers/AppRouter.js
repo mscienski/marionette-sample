@@ -28,7 +28,7 @@ define(['Contact/index', 'App', 'backbone', 'marionette', 'jquery', 'underscore'
             App.on('contact:show', function(id) {
                 App.navigate('contacts/' + id);
                 API.showContact(id);
-            })
+            });
 
             App.on('before:start', function() {
                 new ContactsApp.Router({

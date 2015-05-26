@@ -8,12 +8,11 @@ define(['ContactShow/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
         App.module('ContactsApp.Show', function(Show, App, Backbone, Marionette, $, _, ShowView){
             Show.Controller = {
                 showContact: function(id) {
-                    var contacts = App.request('contact:entities');
-                    var model = contacts.get(id);
+                    var contact = App.request('contact:entity', id);
                     var contactView;
-                    if (model !== undefined) {
+                    if (contact !== undefined) {
                         contactView = new Show.Contact({
-                            model: model
+                            model: contact
                         });
                     } else {
                         contactView = new Show.MissingContact();
