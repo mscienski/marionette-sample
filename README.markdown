@@ -76,11 +76,11 @@ App.js
 
    [Marionette.Application](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.application.md) is the heart of the Marionette framework.  The [Regions](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.region.md), [Layouts](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.layout.md) and [AppRouters](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.approuter.md) you create are typically hung off of a singleton instance of `Marionette.Application`.
 
-   One of Marionette's strengths is that it introduces a Composite architecture, which lets you organize your application into separate regions or areas, with their own self-contained logic and structure.  One of the main ways this can be done is with [Regions](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.region.md).  In App.js, we divide our application into two regions - the `headerRegion` and `mainRegion`, like so:
+   One of Marionette's strengths is that it introduces a Composite architecture, which lets you organize your application into separate regions or areas, with their own self-contained logic and structure.  One of the main ways this can be done is with [Regions](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.region.md).  In App.js, we divide our application into two regions - the `header` and `main`, like so:
 
         App.addRegions({
-            headerRegion:"header",
-            mainRegion:"#main"
+            header:"header",
+            main:"#main"
         });
 
    This searches the DOM for a `<header>` element and for an element with an `id` of `main` and creates a new `Marionette.Region` for each.  Regions have a `show` method which can be passed a `View`.  When a view is passed to a `Region.show`, the view is appended to the Regions associated DOM element and its `render` method is triggered.  An associated `close` method is also available, which contains some basic logic for tearing down the Region's view.  We will see how `show` is used later in MobileController.js.
@@ -107,22 +107,22 @@ AppRouter.js
 
 MobileController.js
 ----------------
-   MobileController.js is an example of a `Marionette.Controller` as described above.  Please note that a Controller in Marionette is different than a typical MVC controller.  Read more about it [here](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.controller.md).  In MobileController's `initialize` method, we show our first View, `MobileHeaderView` in the `App.headerRegion` region. 
+   MobileController.js is an example of a `Marionette.Controller` as described above.  Please note that a Controller in Marionette is different than a typical MVC controller.  Read more about it [here](https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.controller.md).  In MobileController's `initialize` method, we show our first View, `MobileHeaderView` in the `App.header` region.
 
         initialize:function (options) {
-            App.headerRegion.show(new MobileHeaderView());
+            App.header.show(new MobileHeaderView());
         },
 
-   Then, in our `index` function - which handles hash change routing from the `AppRouter` as described above - we show a `WelcomeView` in the Application's `mainRegion`:
+   Then, in our `index` function - which handles hash change routing from the `AppRouter` as described above - we show a `WelcomeView` in the Application's `main`:
 
         index:function () {
-            App.mainRegion.show(new WelcomeView());
+            App.main.show(new WelcomeView());
         }
 
 
 DesktopController.js
 --------------------
-   DesktopController.js is almost identical to MobileController, except that instead of showing a `MobileHeaderView` in the `headerRegion`, we rather predictably show a `HeaderView`.  Again, note that this parallel DesktopController/MobileController is just one way that an application could handle the differences between a mobile and desktop version of an application.  There are many, many other ways this could be done, so don't let this get in your way if it's not exactly what you're after.
+   DesktopController.js is almost identical to MobileController, except that instead of showing a `MobileHeaderView` in the `header`, we rather predictably show a `HeaderView`.  Again, note that this parallel DesktopController/MobileController is just one way that an application could handle the differences between a mobile and desktop version of an application.  There are many, many other ways this could be done, so don't let this get in your way if it's not exactly what you're after.
 
 
 WelcomeView.js

@@ -11,8 +11,8 @@ define(["jquery", "backbone", "marionette", "App", "models/Model", "collections/
                 //Initialize App in Desktop Mode (App is global var)
                 App.start();
                 it("App should start and have Regions", function() {
-                    expect(App.mainRegion.el).toEqual("#main");
-                    expect(App.headerRegion.el).toEqual("header");
+                    expect(App.main.el).toEqual("#main");
+                    expect(App.header.el).toEqual("header");
                 });
 
             }); // End of the View test suite
@@ -27,10 +27,10 @@ define(["jquery", "backbone", "marionette", "App", "models/Model", "collections/
 
                     runs(function() {
                         expect(App.appRouter.options.controller).toBeDefined();
-                        expect(App.headerRegion.currentView).toBeDefined();
-                        expect(App.mainRegion.currentView).toBeDefined();
-                        expect(App.headerRegion.currentView.$el).not.toBeEmpty();
-                        expect(App.mainRegion.currentView.$el).not.toBeEmpty();
+                        expect(App.header.currentView).toBeDefined();
+                        expect(App.main.currentView).toBeDefined();
+                        expect(App.header.currentView.$el).not.toBeEmpty();
+                        expect(App.main.currentView.$el).not.toBeEmpty();
                     });
                 });
             });

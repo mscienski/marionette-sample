@@ -3,7 +3,7 @@
  * Created by mscienski on 5/22/15.
  */
 define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'underscore'],
-    function(List, App, Backbone, Marionette, $, _, Show) {
+    function(List, App, Backbone, Marionette, $, _) {
         App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
             List.Controller = {
                 listContacts: function() {
@@ -18,10 +18,10 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                     });
 
                     contactsListView.on('childview:contact:show', function(childView, model) {
-                        App.ContactsApp.Show.Controller.showContact(model);
+                        App.trigger('contact:show', model.get('id'));
                     });
 
-                    App.mainRegion.show(contactsListView);
+                    App.regions.main.show(contactsListView);
                 }
             };
         });
