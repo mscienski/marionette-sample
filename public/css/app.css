@@ -1,4 +1,5 @@
 @import url("bootstrap.css");
+@import url('jquery-ui-1.10.3.custom.css');
 
 #main {
     margin-top: 60px;

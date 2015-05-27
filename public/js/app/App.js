@@ -8,7 +8,8 @@ define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
 
             regions: {
                 header: 'header',
-                main: '#main'
+                main: '#main',
+                dialog: '#dialog-region'
             }
         });
         //Organize Application into regions corresponding to DOM elements
