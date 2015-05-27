@@ -8,14 +8,16 @@ define(['Contact/index', 'App', 'backbone', 'marionette', 'jquery', 'underscore'
         App.module('ContactsApp', function(ContactsApp, App, Backbone, Marionette, $, _) {
             ContactsApp.Router = Marionette.AppRouter.extend({
                 appRoutes: {
-                    'contacts': 'listContacts',
+                    'contacts(/filter/criterion::criterion)': 'listContacts',
                     'contacts/:id': 'showContact',
-                    'contacts/:id/edit': 'editContact'
+                    'contacts/:id/edit': 'editContact',
                 }
             });
 
             var API = {
-                listContacts: ContactsApp.List.Controller.listContacts,
+                listContacts: function(criterion) {
+                    ContactsApp.List.Controller.listContacts(criterion);
+                },
                 showContact: function(id) {
                     ContactsApp.Show.Controller.showContact(id);
                 },
@@ -37,6 +39,14 @@ define(['Contact/index', 'App', 'backbone', 'marionette', 'jquery', 'underscore'
             App.on('contact:edit', function(id) {
                 App.navigate('contacts/' + id + '/edit');
                 API.editContact(id);
+            });
+
+            App.on('contacts:filter', function(criterion) {
+                if(criterion) {
+                    App.navigate('contacts/filter/criterion:' + criterion);
+                } else {
+                    App.navigate('contacts');
+                }
             });
 
             App.on('before:start', function() {

@@ -22,7 +22,7 @@ define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
                 self.stopListening();
                 self.empty();
                 self.$el.dialog('destroy');
-            };
+            }
 
             this.listenTo(view, 'dialog:close', closeDialog);
 

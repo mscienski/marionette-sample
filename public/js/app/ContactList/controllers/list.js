@@ -6,7 +6,7 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
     function(List, App, Backbone, Marionette, $, _) {
         App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
             List.Controller = {
-                listContacts: function() {
+                listContacts: function(criterion) {
                     var loadingView = new App.Common.Views.Loading();
                     App.regions.main.show(loadingView);
 
@@ -14,13 +14,43 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                     var contactsListPanel = new App.ContactsApp.Panel.Panel();
 
                     App.request('contact:entities').done(function(contacts) {
+                        var filteredContacts = App.Entities.FilteredCollection({
+                            collection: contacts,
+                            filterFunction: function(filterCriterion) {
+                                var criterion = filterCriterion.toLowerCase();
+                                return function(contact) {
+                                    if (contact.get('firstName').toLowerCase().indexOf(criterion) !== -1 ||
+                                        contact.get('lastName').toLowerCase().indexOf(criterion) !== -1 ||
+                                        contact.get('phoneNumber').toLowerCase().indexOf(criterion) !== -1) {
+                                        return contact;
+                                    }
+                                };
+                            }
+                        });
+
+                        if(criterion) {
+                            filteredContacts.filter(criterion);
+                            contactsListPanel.once('show', function() {
+                                contactsListPanel.triggerMethod('set:filter:criterion', criterion);
+                            });
+                        }
+
                         var contactsListView = new List.Contacts({
-                            collection: contacts
+                            collection: filteredContacts
+                        });
+
+                        contactsListPanel.on('contacts:filter', function(filterCriterion) {
+                            filteredContacts.filter(filterCriterion);
                         });
 
                         contactsListLayout.on('show', function() {
                             contactsListLayout.panelRegion.show(contactsListPanel);
                             contactsListLayout.contactsRegion.show(contactsListView);
+                        });
+
+                        contactsListPanel.on('contacts:filter', function(filterCriterion) {
+                            filteredContacts.filter(filterCriterion);
+                            App.trigger('contacts:filter', filterCriterion);
                         });
 
                         contactsListPanel.on('contact:new', function() {
@@ -41,8 +71,10 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                                 if(newContact.save(data)) {
                                     contacts.add(newContact);
                                     view.trigger('dialog:close');
-                                    contactsListView.children.findByModel(newContact)
-                                        .flash('success');
+                                    var newContactView = contactsListView.children.findByModel(newContact);
+                                    if (newContactView) {
+                                        newContactView.flash('success');
+                                    }
                                 } else {
                                     view.triggerMethod('form:data:invalid', newContact.validationError);
                                 }
@@ -60,7 +92,7 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                         });
 
                         contactsListView.on('childview:contact:edit', function(childView, args) {
-                            var model = args.model
+                            var model = args.model;
                             var view = new App.ContactsApp.Edit.Contact({
                                 model: model
                             });
