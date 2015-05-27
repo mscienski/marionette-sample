@@ -8,28 +8,16 @@ define(['App', 'marionette', 'handlebars', 'jquery', 'Contact/models/Contact', '
             tagName: 'tr',
             template: HandleBars.compile(template),
             events: {
-                'click': 'highlightName',
-                'click button.js-delete': 'deleteClicked',
-                'click td a.js-show': 'showClicked',
-                'click td a.js-edit': 'editClicked'
+                'click': 'highlightName'
+            },
+            triggers: {
+                'click button.js-delete': 'contact:delete',
+                'click td a.js-show': 'contact:show',
+                'click td a.js-edit': 'contact:edit'
             },
             highlightName: function(e) {
                 e.preventDefault();
                 this.$el.toggleClass('warning');
-            },
-            deleteClicked: function(e) {
-                e.stopPropagation();
-                this.trigger('contact:delete', this.model);
-            },
-            showClicked: function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.trigger('contact:show', this.model);
-            },
-            editClicked: function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.trigger('contact:edit', this.model);
             },
             remove: function() {
                 var self = this;

@@ -3,10 +3,10 @@
  * Created by mscienski on 5/22/15.
  */
 
-define(['App', 'marionette', 'backbone', 'jquery', 'underscore', 'Q', './models/Contact', './collections/ContactCollection', './routers/AppRouter', 'views/HeaderView', './localstorage'],
-    function(App, Marionette, Backbone, $, _, Q, Contact, ContactCollection, ContactsAppRouter, HeaderView, LocalStorage) {
+define(['App', 'marionette', 'backbone', 'jquery', 'underscore', 'Q', './models/Contact', './collections/ContactCollection', './routers/AppRouter', 'views/HeaderView', './localstorage', './views/CommonViews'],
+    function(App, Marionette, Backbone, $, _, Q, Contact, ContactCollection, ContactsAppRouter, HeaderView, LocalStorage, CommonViews) {
 
-        App.module('Entities', function(Entities, App, Backbone, Marionette, $, _, Contact, ContactCollection, ContactsAppRouter, HeaderView) {
+        App.module('Entities', function(Entities, App, Backbone, Marionette, $, _, Contact, ContactCollection, ContactsAppRouter, HeaderView, CommonViews) {
             Entities.Contact = Contact;
             Entities.ContactCollection = ContactCollection;
 
@@ -85,5 +85,5 @@ define(['App', 'marionette', 'backbone', 'jquery', 'underscore', 'Q', './models/
 
             App.regions.header.show(new HeaderView());
 
-        }, Contact, ContactCollection, ContactsAppRouter, HeaderView);
+        }, Contact, ContactCollection, ContactsAppRouter, HeaderView, CommonViews);
     });

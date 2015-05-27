@@ -10,10 +10,19 @@ define(['App', './ContactView', 'marionette', 'handlebars', 'jquery', 'text!../t
             template: HandleBars.compile(template),
             childView: Contact,
             childViewContainer: 'tbody',
-            onChildviewContactDelete: function() {
-                this.$el.fadeOut(1000, function() {
-                    $(this).fadeIn(1000);
+
+            initialize: function() {
+                this.listenTo(this.collection, 'reset', function() {
+                    this.attachHtml = function(collectionView, childView, index) {
+                        collectionView.$el.append(childView.el);
+                    };
                 });
+            },
+
+            onRenderCollection: function() {
+                this.attachHtml = function(collectionView, childView, index) {
+                    collectionView.$el.prepend(childView.el);
+                };
             }
         });
     });

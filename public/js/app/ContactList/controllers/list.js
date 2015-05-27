@@ -23,15 +23,45 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                             contactsListLayout.contactsRegion.show(contactsListView);
                         });
 
-                        contactsListView.on('childview:contact:delete', function (childView, model) {
-                            model.destroy();
+                        contactsListPanel.on('contact:new', function() {
+                            var newContact = new App.Entities.Contact();
+                            var view = new App.ContactsApp.New.Contact({
+                                model: newContact,
+                                asModal: true
+                            });
+
+                            view.on('form:submit', function(data) {
+                                if (contacts.length > 0) {
+                                    var highestId = contacts.max(function(c) {
+                                        return c.id;
+                                    }).get('id');
+                                    data.id = highestId + 1;
+                                } else {
+                                    data.id = 1;
+                                }
+                                if(newContact.save(data)) {
+                                    contacts.add(newContact);
+                                    App.regions.dialog.empty();
+                                    contactsListView.children.findByModel(newContact)
+                                        .flash('success');
+                                } else {
+                                    view.triggerMethod('form:data:invalid', newContact.validationError);
+                                }
+                            });
+
+                            App.regions.dialog.show(view);
                         });
 
-                        contactsListView.on('childview:contact:show', function (childView, model) {
-                            App.trigger('contact:show', model.get('id'));
+                        contactsListView.on('childview:contact:delete', function (childView, args) {
+                            args.model.destroy();
                         });
 
-                        contactsListView.on('childview:contact:edit', function(childView, model) {
+                        contactsListView.on('childview:contact:show', function (childView, args) {
+                            App.trigger('contact:show', args.model.get('id'));
+                        });
+
+                        contactsListView.on('childview:contact:edit', function(childView, args) {
+                            var model = args.model
                             var view = new App.ContactsApp.Edit.Contact({
                                 model: model,
                                 asModal: true

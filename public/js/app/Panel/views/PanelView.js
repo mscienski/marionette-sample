@@ -6,7 +6,11 @@ define(['App', 'backbone', 'marionette', 'handlebars', 'jquery', 'underscore', '
     function(App, Backbone, Marionette, Handlebars, $, _, PanelModule, template) {
         App.module('ContactsApp.Panel', function(Panel, App, Backbone, Marionette, $, _) {
             Panel.Panel = Marionette.LayoutView.extend({
-                template: Handlebars.compile(template)
+                template: Handlebars.compile(template),
+
+                triggers: {
+                    'click button.js-new': 'contact:new'
+                }
             });
         });
     });

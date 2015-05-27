@@ -23,7 +23,7 @@ define(['jquery', 'backbone', 'underscore'],
             defaults: {
                 firstName: '',
                 lastName: '',
-                phoneNumber: 'No phone number!'
+                phoneNumber: ''
             }
         });
 
