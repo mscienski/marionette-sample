@@ -26,8 +26,7 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                         contactsListPanel.on('contact:new', function() {
                             var newContact = new App.Entities.Contact();
                             var view = new App.ContactsApp.New.Contact({
-                                model: newContact,
-                                asModal: true
+                                model: newContact
                             });
 
                             view.on('form:submit', function(data) {
@@ -41,7 +40,7 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                                 }
                                 if(newContact.save(data)) {
                                     contacts.add(newContact);
-                                    App.regions.dialog.empty();
+                                    view.trigger('dialog:close');
                                     contactsListView.children.findByModel(newContact)
                                         .flash('success');
                                 } else {
@@ -63,14 +62,13 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                         contactsListView.on('childview:contact:edit', function(childView, args) {
                             var model = args.model
                             var view = new App.ContactsApp.Edit.Contact({
-                                model: model,
-                                asModal: true
+                                model: model
                             });
 
                             view.on('form:submit', function(data) {
                                 if(model.save(data)) {
                                     childView.render();
-                                    App.regions.dialog.empty();
+                                    view.trigger('dialog:close');
                                     childView.flash('success');
                                 } else {
                                     view.triggerMethod('form:data:invalid', model.validationError);

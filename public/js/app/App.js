@@ -16,6 +16,26 @@ define(['jquery', 'backbone', 'marionette', 'underscore', 'handlebars'],
         //Regions can contain views, Layouts, or subregions nested as necessary
         App.regions = new RegionContainer();
 
+        App.regions.dialog.onShow = function(view) {
+            var self = this;
+            function closeDialog() {
+                self.stopListening();
+                self.empty();
+                self.$el.dialog('destroy');
+            };
+
+            this.listenTo(view, 'dialog:close', closeDialog);
+
+            this.$el.dialog({
+                modal: true,
+                title: view.title,
+                width: 'auto',
+                close: function(e, ui) {
+                    closeDialog();
+                }
+            });
+        };
+
         function isMobile() {
             var ua = (navigator.userAgent || navigator.vendor || window.opera, window, window.document);
             return (/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);

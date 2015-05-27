@@ -17,7 +17,8 @@ define(['App', 'backbone', 'marionette', 'jquery', 'underscore', '../views/EditV
                         var view;
                         if (contact !== undefined) {
                             view = new Edit.Contact({
-                                model: contact
+                                model: contact,
+                                generateTitle: true
                             });
 
                             view.on('form:submit', function(data) {
