@@ -15,6 +15,26 @@ define(['App', 'backbone', 'marionette', 'handlebars', 'jquery', 'underscore', '
                     e.preventDefault();
                     var data = Backbone.Syphon.serialize(this);
                     this.trigger('form:submit', data);
+                },
+
+                onFormDataInvalid: function(errors) {
+                    var $view = this.$el;
+
+                    function clearFormErrors() {
+                        var $form = $view.find('form');
+                        $form.find('.help-inline.error').remove();
+                        $form.find('.control-group.error').removeClass('error');
+                    }
+
+                    function markErrors(value, key) {
+                        var $controlGroup = $view.find('#contact-' + key).parent();
+                        var $errorEl = $('<span>', {class: 'help-inline error', text:value});
+                        $controlGroup.append($errorEl).addClass('error');
+                    };
+
+                    clearFormErrors();
+
+                    _.each(errors, markErrors);
                 }
             });
         });

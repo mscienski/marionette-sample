@@ -21,8 +21,11 @@ define(['App', 'backbone', 'marionette', 'jquery', 'underscore', '../views/EditV
                             });
 
                             view.on('form:submit', function(data) {
-                                contact.save(data);
-                                App.trigger('contact:show', contact.get('id'));
+                                if(contact.save(data)) {
+                                    App.trigger('contact:show', contact.get('id'));
+                                } else {
+                                    view.triggerMethod('form:data:invalid', contact.validationError);
+                                }
 
                             });
                         } else {
