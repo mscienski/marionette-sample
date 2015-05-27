@@ -8,6 +8,16 @@ define(['App', 'backbone', 'marionette', 'handlebars', 'jquery', 'underscore', '
             Views.Loading = Marionette.ItemView.extend({
                 template: Handlebars.compile(template),
 
+                title: 'Loading Data',
+                message: 'Please wait, data is loading',
+
+                serializeData: function() {
+                    return {
+                        title: Marionette.getOption(this, 'title'),
+                        message: Marionette.getOption(this, 'message')
+                    }
+                },
+
                 onShow: function() {
                     var opts = {
                         lines: 13,

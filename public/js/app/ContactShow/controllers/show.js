@@ -8,7 +8,10 @@ define(['ContactShow/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
         App.module('ContactsApp.Show', function(Show, App, Backbone, Marionette, $, _, ShowView){
             Show.Controller = {
                 showContact: function(id) {
-                    var loadingView = new App.Common.Views.Loading();
+                    var loadingView = new App.Common.Views.Loading({
+                        title: 'Artificial Loading Delay',
+                        message: 'Data loading is delayed to demonstrate using a loading view'
+                    });
                     App.regions.main.show(loadingView);
 
                     App.request('contact:entity', id)
