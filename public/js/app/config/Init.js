@@ -16,6 +16,7 @@ require.config({
         'Q':'../libs/q',
 
         // Plugins
+        'backbone.syphon':'../libs/plugins/backbone.syphon',
         "backbone.validateAll":"../libs/plugins/Backbone.validateAll",
         "bootstrap":"../libs/plugins/bootstrap",
         "text":"../libs/plugins/text"

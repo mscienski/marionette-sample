@@ -15,7 +15,7 @@ define(['App', 'backbone', 'marionette', 'handlebars', 'jquery', 'underscore', '
                     return {
                         title: Marionette.getOption(this, 'title'),
                         message: Marionette.getOption(this, 'message')
-                    }
+                    };
                 },
 
                 onShow: function() {

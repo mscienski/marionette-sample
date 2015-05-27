@@ -21,6 +21,10 @@ define(['ContactShow/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                                 contactView = new Show.Contact({
                                     model: contact
                                 });
+
+                                contactView.on('contact:edit', function(editContact) {
+                                    App.trigger('contact:edit', editContact.get('id'));
+                                });
                             } else {
                                 contactView = new Show.MissingContact();
                             }

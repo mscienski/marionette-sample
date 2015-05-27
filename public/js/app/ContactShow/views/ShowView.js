@@ -6,7 +6,14 @@ define(['App', 'backbone', 'marionette', 'handlebars', 'jquery', 'underscore', '
     function(App, Backbone, Marionette, Handlebars, $, _, template, NotFoundTemplate) {
         App.module('ContactsApp.Show', function(Show, App, Backbone, Marionette, $, _) {
             Show.Contact = Marionette.ItemView.extend({
-                template: Handlebars.compile(template)
+                template: Handlebars.compile(template),
+                events: {
+                    'click a.js-edit': 'editClicked'
+                },
+                editClicked: function(e) {
+                    e.preventDefault();
+                    this.trigger('contact:edit', this.model);
+                }
             });
 
             Show.MissingContact = Marionette.ItemView.extend({
