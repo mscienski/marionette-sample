@@ -15,6 +15,8 @@ define(['App', 'backbone', 'marionette', 'jquery', 'underscore', 'Contact/views/
                         var $title = $('<h1>', {text: this.title});
                         this.$el.prepend($title);
                     }
+
+                    this.$('.js-submit').text('Update contact');
                 }
             });
         });

@@ -6,7 +6,11 @@ define(['App', 'backbone', 'marionette', 'jquery', 'underscore', 'Contact/views/
     function(App, Backbone, Marionette, $, _, CommonViews) {
         App.module('ContactsApp.New', function(New, App, Backbone, Marionette, $, _) {
             New.Contact = App.ContactsApp.Common.Views.Form.extend({
-                title: 'New Contact'
+                title: 'New Contact',
+
+                onRender: function() {
+                    this.$('js-submit').text('Create contact');
+                }
             });
         });
     });
