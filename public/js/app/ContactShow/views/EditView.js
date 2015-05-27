@@ -52,7 +52,7 @@ define(['App', 'backbone', 'marionette', 'handlebars', 'jquery', 'underscore', '
                         var $controlGroup = $view.find('#contact-' + key).parent();
                         var $errorEl = $('<span>', {class: 'help-inline error', text:value});
                         $controlGroup.append($errorEl).addClass('error');
-                    };
+                    }
 
                     clearFormErrors();
 

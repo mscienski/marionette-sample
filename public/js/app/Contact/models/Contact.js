@@ -2,8 +2,8 @@
 /**
  * Created by mscienski on 5/21/15.
  */
-define(['jquery', 'backbone'],
-    function($, Backbone) {
+define(['jquery', 'backbone', 'underscore'],
+    function($, Backbone, _) {
         var Contact = Backbone.Model.extend({
             urlRoot: 'contacts',
             validate: function(attrs, options) {

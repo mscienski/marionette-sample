@@ -10,9 +10,17 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                     var loadingView = new App.Common.Views.Loading();
                     App.regions.main.show(loadingView);
 
+                    var contactsListLayout = new App.ContactsApp.Panel.Layout();
+                    var contactsListPanel = new App.ContactsApp.Panel.Panel();
+
                     App.request('contact:entities').done(function(contacts) {
                         var contactsListView = new List.Contacts({
                             collection: contacts
+                        });
+
+                        contactsListLayout.on('show', function() {
+                            contactsListLayout.panelRegion.show(contactsListPanel);
+                            contactsListLayout.contactsRegion.show(contactsListView);
                         });
 
                         contactsListView.on('childview:contact:delete', function (childView, model) {
@@ -42,7 +50,7 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
                             App.regions.dialog.show(view);
                         });
 
-                        App.regions.main.show(contactsListView);
+                        App.regions.main.show(contactsListLayout);
                     });
                 }
             };
