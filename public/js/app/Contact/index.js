@@ -3,8 +3,8 @@
  * Created by mscienski on 5/22/15.
  */
 
-define(['App', 'marionette', 'backbone', 'jquery', 'underscore', './models/Contact', './collections/ContactCollection', './routers/AppRouter', 'views/HeaderView', './localstorage'],
-    function(App, Marionette, Backbone, $, _, Contact, ContactCollection, ContactsAppRouter, HeaderView, LocalStorage) {
+define(['App', 'marionette', 'backbone', 'jquery', 'underscore', 'Q', './models/Contact', './collections/ContactCollection', './routers/AppRouter', 'views/HeaderView', './localstorage'],
+    function(App, Marionette, Backbone, $, _, Q, Contact, ContactCollection, ContactsAppRouter, HeaderView, LocalStorage) {
 
         App.module('Entities', function(Entities, App, Backbone, Marionette, $, _, Contact, ContactCollection, ContactsAppRouter, HeaderView) {
             Entities.Contact = Contact;
@@ -13,16 +13,33 @@ define(['App', 'marionette', 'backbone', 'jquery', 'underscore', './models/Conta
             var API = {
                 getContactEntities: function() {
                     var contacts = new Entities.ContactCollection();
-                    contacts.fetch();
-                    if (contacts.length === 0) {
-                        return initializeContacts();
-                    }
-                    return contacts;
+                    var d = Q.defer();
+                    contacts.fetch({
+                        success: function(data) {
+                            d.resolve(data);
+                        },
+                        error: function(error) {
+                            d.reject(error);
+                        }
+                    });
+
+                    return d.promise.then(function(fetchedContacts) {
+                        if (fetchedContacts.length === 0) {
+                            var models = initializeContacts();
+                            contacts.reset(models);
+                        }
+
+                        return contacts;
+                    });
                 },
+
                 getContactEntity: function(contactId) {
+                    var d = Q.defer();
                     var contact = new Entities.Contact({id: contactId});
-                    contact.fetch();
-                    return contact;
+                    return Q.delay(2000).then(function() {
+                        contact.fetch();
+                        return contact;
+                    });
                 }
             };
 
@@ -52,7 +69,7 @@ define(['App', 'marionette', 'backbone', 'jquery', 'underscore', './models/Conta
                     contact.save();
                 });
 
-                return contacts
+                return contacts.models;
             }
 
             App.reqres.setHandler('contact:entities', function() {

@@ -8,17 +8,22 @@ define(['ContactShow/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
         App.module('ContactsApp.Show', function(Show, App, Backbone, Marionette, $, _, ShowView){
             Show.Controller = {
                 showContact: function(id) {
-                    var contact = App.request('contact:entity', id);
-                    var contactView;
-                    if (contact !== undefined) {
-                        contactView = new Show.Contact({
-                            model: contact
-                        });
-                    } else {
-                        contactView = new Show.MissingContact();
-                    }
+                    var loadingView = new App.Common.Views.Loading();
+                    App.regions.main.show(loadingView);
 
-                    App.regions.main.show(contactView);
+                    App.request('contact:entity', id)
+                        .done(function(contact) {
+                            var contactView;
+                            if (contact !== undefined) {
+                                contactView = new Show.Contact({
+                                    model: contact
+                                });
+                            } else {
+                                contactView = new Show.MissingContact();
+                            }
+
+                            App.regions.main.show(contactView);
+                        });
                 }
             };
         }, ShowView);

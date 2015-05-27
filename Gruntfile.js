@@ -35,7 +35,9 @@ module.exports = function(grunt) {
                     module: true,
                     document: true,
                     define: true,
-                    require: true
+                    require: true,
+                    setTimeout: true,
+                    setInterval: true
                 },
                 strict: false,
                 globalstrict: true,

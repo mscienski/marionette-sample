@@ -5,12 +5,15 @@ require.config({
     paths:{
         // Core Libraries
         "jquery":"../libs/jquery",
+        'spin': '../libs/spin',
         "jqueryui":"../libs/jqueryui",
+        'jqspin': '../libs/spin.jquery',
         "underscore":"../libs/lodash",
         "backbone":"../libs/backbone",
         "marionette":"../libs/backbone.marionette",
         "handlebars":"../libs/handlebars",
         'localstorageadapter':'../libs/localstorage',
+        'Q':'../libs/q',
 
         // Plugins
         "backbone.validateAll":"../libs/plugins/Backbone.validateAll",
@@ -40,7 +43,7 @@ require.config({
 });
 
 // Includes Desktop Specific JavaScript files here (or inside of your Desktop router)
-require(["Contact/index", "ContactList/index", 'ContactShow/index', 'App', "jquery", "jqueryui", "bootstrap", "backbone.validateAll", 'localstorageadapter'],
-    function (Contact, ContactList, ContactShow, App) {
+require(['Common/index', "Contact/index", "ContactList/index", 'ContactShow/index', 'App', "jquery", "jqueryui", "bootstrap", "backbone.validateAll", 'localstorageadapter'],
+    function (Common, Contact, ContactList, ContactShow, App) {
         App.start();
     });

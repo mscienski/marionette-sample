@@ -7,21 +7,24 @@ define(['ContactList/index', 'App', 'backbone', 'marionette', 'jquery', 'undersc
         App.module('ContactsApp.List', function(List, App, Backbone, Marionette, $, _) {
             List.Controller = {
                 listContacts: function() {
-                    var contacts = App.request('contact:entities');
+                    var loadingView = new App.Common.Views.Loading();
+                    App.regions.main.show(loadingView);
 
-                    var contactsListView = new List.Contacts({
-                        collection: contacts
+                    App.request('contact:entities').done(function(contacts) {
+                        var contactsListView = new List.Contacts({
+                            collection: contacts
+                        });
+
+                        contactsListView.on('childview:contact:delete', function (childView, model) {
+                            model.destroy();
+                        });
+
+                        contactsListView.on('childview:contact:show', function (childView, model) {
+                            App.trigger('contact:show', model.get('id'));
+                        });
+
+                        App.regions.main.show(contactsListView);
                     });
-
-                    contactsListView.on('childview:contact:delete', function(childView, model) {
-                        model.destroy();
-                    });
-
-                    contactsListView.on('childview:contact:show', function(childView, model) {
-                        App.trigger('contact:show', model.get('id'));
-                    });
-
-                    App.regions.main.show(contactsListView);
                 }
             };
         });
