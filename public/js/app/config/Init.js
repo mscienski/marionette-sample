@@ -44,7 +44,7 @@ require.config({
 });
 
 // Includes Desktop Specific JavaScript files here (or inside of your Desktop router)
-require(['Common/index', "Contact/index", "ContactList/index", 'ContactShow/index', 'Panel/index', 'App', "jquery", "jqueryui", "bootstrap", "backbone.validateAll", 'localstorageadapter'],
-    function (Common, Contact, ContactList, ContactShow, Panel, App) {
+require(['Common/index', "Contact/index", "ContactList/index", 'ContactShow/index', 'Panel/index', 'About/index', 'App', "jquery", "jqueryui", "bootstrap", "backbone.validateAll", 'localstorageadapter'],
+    function (Common, Contact, ContactList, ContactShow, Panel, AboutApp, App) {
         App.start();
     });
